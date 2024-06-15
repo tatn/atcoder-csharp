@@ -361,3 +361,6 @@ MigrationBackup/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
+/Lib/MathLib.cs
+/Memo/memo.md
+/Lib/BinarySearchSupport.cs
