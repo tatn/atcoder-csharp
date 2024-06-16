@@ -12,9 +12,9 @@
 
 
             string answer = "No";
-            for (int i = 1;i < Math.Sqrt(n)+1; i++)
+            for (int i = 1; i < Math.Sqrt(n) + 1; i++)
             {
-                if(i*i == n)
+                if (i * i == n)
                 {
                     answer = "Yes";
                     break;
