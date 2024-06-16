@@ -16,50 +16,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="ABC\ABC055\" />
-    <Folder Include="ABC\ABC057\" />
-    <Folder Include="ABC\ABC060\" />
-    <Folder Include="ABC\ABC075\" />
-    <Folder Include="ABC\ABC097\" />
-    <Folder Include="ABC\ABC100\" />
-    <Folder Include="ABC\ABC103\" />
-    <Folder Include="ABC\ABC106\" />
-    <Folder Include="ABC\ABC115\" />
-    <Folder Include="ABC\ABC120\" />
-    <Folder Include="ABC\ABC126\" />
-    <Folder Include="ABC\ABC128\" />
-    <Folder Include="ABC\ABC135\" />
-    <Folder Include="ABC\ABC136\" />
-    <Folder Include="ABC\ABC145\" />
-    <Folder Include="ABC\ABC147\" />
-    <Folder Include="ABC\ABC148\" />
-    <Folder Include="ABC\ABC150\" />
-    <Folder Include="ABC\ABC158\" />
-    <Folder Include="ABC\ABC160\" />
-    <Folder Include="ABC\ABC044\" />
-    <Folder Include="ABC\ABC050\" />
-    <Folder Include="ABC\ABC063\" />
-    <Folder Include="ABC\ABC109\" />
-    <Folder Include="ABC\ABC141\" />
-    <Folder Include="ABC\ABC157\" />
     <Folder Include="ABC\ABC068\" />
-    <Folder Include="ABC\ABC074\" />
-    <Folder Include="ABC\ABC086\" />
-    <Folder Include="ABC\ABC121\" />
-    <Folder Include="ABC\ABC122\" />
-    <Folder Include="ABC\ABC132\" />
-    <Folder Include="ABC\ABC149\" />
-    <Folder Include="AGC\AGC003\" />
-    <Folder Include="AGC\AGC024\" />
-    <Folder Include="AGC\AGC037\" />
-    <Folder Include="AGC\AGC002\" />
-    <Folder Include="ARC\ARC096\" />
-    <Folder Include="OtherContests\hokudai-hitachi2020\" />
-    <Folder Include="OtherContests\ddcc2020-qual\" />
-    <Folder Include="OtherContests\code-festival-2016-qualc\" />
-    <Folder Include="OtherContests\code-festival-2017-qualc\" />
-    <Folder Include="OtherContests\sumitrust2019\" />
-    <Folder Include="OtherContests\diverta2019\" />
   </ItemGroup>
 
 </Project>
