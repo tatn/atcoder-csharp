@@ -1,2 +1,2 @@
-﻿AtCoderCsharp.OtherContests.code_festival_2017_qualb.code_festival_2017_qualb_b.Main(new string[] { });
+﻿AtCoderCsharp.ABC.ABC066.arc077_a.Main(new string[] { });
 
