@@ -15,9 +15,21 @@
             int evenCount = A.Where(x => x % 2 == 0).Count();
             int oddCount = N - evenCount;
 
-
-
-            Console.WriteLine(1);
+            if(oddCount == 0)
+            {
+                if(P == 0)
+                {
+                    Console.WriteLine(1L << evenCount);                    
+                }
+                else
+                {
+                    Console.WriteLine(0);
+                }
+            }
+            else
+            {
+                Console.WriteLine(1L << (N - 1));
+            }
         }
     }
 }
