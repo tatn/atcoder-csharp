@@ -1,4 +1,4 @@
-﻿namespace AtCoderCsharp.AGC.AGC
+﻿namespace AtCoderCsharp.AGC.AGC002
 {
     internal class agc002_a
     {
