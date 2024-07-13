@@ -1,10 +1,7 @@
-﻿using System.Numerics;
-using static System.Net.Mime.MediaTypeNames;
-namespace AtCoderCsharp.ABC.ABC362
+﻿namespace AtCoderCsharp.ABC.ABC362
 {
     internal class abc362_d
     {
-        //ToDo
         public static void Main(string[] args)
         {
             int[] ReadIntArray() => Console.ReadLine()!.Split().Select(int.Parse).ToArray();
@@ -15,33 +12,26 @@ namespace AtCoderCsharp.ABC.ABC362
             int M = NM[1];
 
             long[] A = new long[N+1];
-            long[] aInput = ReadLongArray();
-            for (int i = 0; i < N; i++)
+            Array.Copy(ReadLongArray(), 0, A, 1, N);
+
+            List<(int, long)>[] UV = new List<(int, long)>[N + 1];
+            for (int i = 0; i < N+1; i++)
             {
-                A[i + 1] = aInput[i];
+                UV[i] = new List<(int, long)>();
             }
 
-            List<int>[] UV = new List<int>[N+1];
-            for (int i = 0; i <= N; i++)
-            {
-                UV[i] = new List<int> { };
-            }
-
-            long[,] B = new long[N+1, N + 1];
             for (int i = 0; i < M; i++)
             {
                 int[] UVB = ReadIntArray();
-                UV[UVB[0]].Add(UVB[1]);
-                UV[UVB[1]].Add(UVB[0]);
-                B[UVB[0], UVB[1]] = UVB[2];
-                B[UVB[1], UVB[0]] = UVB[2];
+                UV[UVB[0]].Add((UVB[1], UVB[2]));
+                UV[UVB[1]].Add((UVB[0], UVB[2]));
             }
 
             bool[] fix = new bool[N+1];
             long[] distance = new long[N+1];
             for (int i = 0; i <= N; i++)
             {
-                distance[i] = 1_000_000_000L * 2L * 100_000L * 2L * 2L;
+                distance[i] = long.MaxValue;
             }
 
             PriorityQueue<int,long> priorityQueue = new PriorityQueue<int,long>();
@@ -49,11 +39,9 @@ namespace AtCoderCsharp.ABC.ABC362
             distance[1] = A[1];
             priorityQueue.Enqueue(1, distance[1]);
 
-            List<int> path = new List<int>();
             while (0 < priorityQueue.Count)
             {
                 int current = priorityQueue.Dequeue();
-                path.Add(current);
 
                 if (fix[current])
                 {
@@ -64,8 +52,8 @@ namespace AtCoderCsharp.ABC.ABC362
 
                 for (int i = 0; i < UV[current].Count; i++)
                 {
-                    int next = UV[current][i];
-                    long cost = B[current, next] + A[next];
+                    int next = UV[current][i].Item1;
+                    long cost = UV[current][i].Item2 + A[next];
 
                     if(distance[current] + cost < distance[next])
                     {
