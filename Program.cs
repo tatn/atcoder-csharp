@@ -1,5 +1,5 @@
-﻿AtCoderCsharp.ABC.ABC136.abc136_d.Main(new string[] { });
+﻿//AtCoderCsharp.ABC.ABC066.abc066_b.Main(new string[] { });
 //AtCoderCsharp.AGC.AGC002.agc002_b.Main(new string[] { });
-//AtCoderCsharp.OtherContests.keyence2020.keyence2020_c.Main(new string[] { });
+AtCoderCsharp.OtherContests.jsc2019_qual.jsc2019_qual_b.Main(new string[] { });
 
 
