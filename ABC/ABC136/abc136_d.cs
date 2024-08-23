@@ -1,6 +1,6 @@
 ﻿namespace AtCoderCsharp.ABC.ABC136
 {
-    internal class abc136_d
+    internal class abc139_d
     {
         public static void Main(string[] args)
         {
