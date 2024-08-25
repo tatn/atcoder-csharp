@@ -16,62 +16,26 @@ namespace AtCoderCsharp.ABC.ABC368
             int enemyCount = N;
             for (int i = 0; i < N; i++)
             {
-                T++;
                 int hitPoint = H[i];
 
-                switch(T % 3)
+                int tripleTurnCount = hitPoint / 5;
+                T += tripleTurnCount * 3;
+
+                hitPoint -= tripleTurnCount * 5;
+
+                while(0 < hitPoint)
                 {
-                    case 0:
-                        //3,1,1,3,1,1,3,1,1,..
-                        T = T + ((long)((hitPoint-1) / 5)) * 3L;
-                        switch (hitPoint % 5)
-                        {
-                            case 1:
-                            case 2:
-                            case 3:
-                                break;
-                            case 4:
-                                T = T + 1L;
-                                break;
-                            case 0:
-                                T = T + 2L;
-                                break;
-                        }
-                        break;
-                    case 1:
-                        //1,1,3,1,1,3,...
-                        T = T + ((long)((hitPoint - 1) / 5)) * 3L;
-                        switch (hitPoint % 5)
-                        {
-                            case 1:
-                                break;
-                            case 2:
-                                T = T + 1L;
-                                break;
-                            case 3:
-                            case 4:
-                            case 0:
-                                T = T + 2L;
-                                break;
-                        }
-                        break;
-                    case 2:
-                        //1,3,1,1,3,1,...
-                        T = T + ((long)((hitPoint - 1) / 5)) * 3L;
-                        switch (hitPoint % 5)
-                        {
-                            case 1:
-                                break;
-                            case 2:
-                            case 3:
-                            case 4:
-                                T = T + 1L;
-                                break;
-                            case 0:
-                                T = T + 2L;
-                                break;
-                        }
-                        break;
+                    T++;
+                    switch (T % 3)
+                    {
+                        case 0:
+                            hitPoint -= 3;
+                            break;
+                        case 1:
+                        case 2:
+                            hitPoint--;
+                            break;
+                    }
                 }
             }
 

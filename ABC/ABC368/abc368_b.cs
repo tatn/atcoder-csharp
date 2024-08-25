@@ -18,15 +18,15 @@
                 sortedList.Sort();
                 sortedList.Reverse();
 
+                if (sortedList[0] == 0 || sortedList[1] == 0)
+                {
+                    break;
+                }
+
                 sortedList[0]--;
                 sortedList[1]--;
 
                 answer++;
-
-                if (sortedList.Count(a=> 0 <a) <= 1)
-                {
-                    break;
-                }
 
             }
 
