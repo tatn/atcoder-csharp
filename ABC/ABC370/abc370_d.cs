@@ -5,6 +5,7 @@ namespace AtCoderCsharp.ABC.ABC370
     {
         public static void Main(string[] args)
         {
+            //ToDo
             int[] ReadIntArray() => Console.ReadLine()!.Split().Select(int.Parse).ToArray();
 
             int[] HWQ = ReadIntArray();
