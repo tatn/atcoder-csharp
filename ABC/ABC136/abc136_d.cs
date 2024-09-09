@@ -1,8 +1,50 @@
 ﻿namespace AtCoderCsharp.ABC.ABC136
 {
-    internal class abc139_d
+    internal class abc136_d
     {
+        // D - Gathering Children 
         public static void Main(string[] args)
+        {
+            string ReadString() => Console.ReadLine()!;
+
+            string S = ReadString();
+            int N = S.Length;
+
+            // dp[i,j] jの位置にいた子供が2^i回移動した後で位置
+            // 2^17 = 131072 ≒ 1.3 * 10^5のため i=17まで計算する
+            int[,] dp = new int[17+1,N+1];
+
+            for (int i = 1; i <= N; i++)
+            {
+                dp[0, i] = S[i-1] == 'R' ? i + 1 : i - 1;
+            }
+
+            for (int i = 1; i <= 17; i++)
+            {
+                for (int j = 1; j <= N; j++)
+                {
+                    dp[i, j] = dp[i - 1, dp[i - 1, j]];
+                }
+            }
+
+            int[] answer = new int[N+1];
+            for (int i = 1; i <= N; i++)
+            {
+                answer[dp[17, i]]++;
+            }
+
+            for (int i = 1; i <= N; i++)
+            {
+                Console.Write(answer[i]);
+                if(i != N)
+                {
+                    Console.Write(" ");
+                }
+            }
+
+        }
+
+        public static void Main2(string[] args)
         {
             string ReadString() => Console.ReadLine()!;
 
