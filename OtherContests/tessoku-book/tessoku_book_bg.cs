@@ -1,28 +1,26 @@
-﻿
-using System.Reflection.Metadata.Ecma335;
+﻿using System.Numerics;
 
 namespace AtCoderCsharp.OtherContests.tessoku_book
 {
-    internal class tessoku_book_ee
+    internal class tessoku_book_bg
     {
-        //B58 - Jumping 
+        //A59 - RSQ (Range Sum Queries) 
+
         public static void Main(string[] args)
         {
             int[] ReadIntArray() => Console.ReadLine()!.Split().Select(int.Parse).ToArray();
 
-            int[] NLR = ReadIntArray();
-            int N = NLR[0];
-            int L = NLR[1];
-            int R = NLR[2];
+            int[] NQ = ReadIntArray();
+            int N = NQ[0];
+            int Q = NQ[1];
 
-            List<int> X = ReadIntArray().ToList();
-            X.Insert(0, -2_000_000_000);
-
-            int max = 2_00_000;
-            int[] dp = new int[N + 1];
-            for (int i = 0; i < N+1; i++)
+            int[,] Query = new int[Q + 1, 3];
+            for (int i = 1; i <= Q; i++)
             {
-                dp[i] = max;
+                int[] queryInput = ReadIntArray();
+                Query[i, 0] = queryInput[0];
+                Query[i, 1] = queryInput[1];
+                Query[i, 2] = queryInput[2];
             }
 
             int leafSize = 1;
@@ -35,41 +33,25 @@ namespace AtCoderCsharp.OtherContests.tessoku_book
 
             int[] nodes = new int[1 << level];
 
-            for (int i = 0; i < leafSize; i++)
+            for (int i = 1; i <= Q; i++)
             {
-                int nodeIndex = GetNodeIndex(i + 1);
-                SetNodeValue(nodeIndex, max);
+                switch (Query[i, 0])
+                {
+                    case 1:
+                        int pos = Query[i, 1];
+                        int x = Query[i, 2];
+                        int nodeIndex = GetNodeIndex(pos);
+                        SetNodeValue(nodeIndex, x);
+                        break;
+                    case 2:
+                        int l = Query[i, 1];
+                        int r = Query[i, 2];
+                        int sum = GetSumValue(l, r-1, 1, 1);
+                        Console.WriteLine(sum);
+                        break;
+
+                }
             }
-
-            dp[1] = 0;
-            SetNodeValue(GetNodeIndex(1), 0);
-
-
-            for (int i = 2; i <= N; i++)
-            {
-                int leftIndex = X.BinarySearch(X[i] - R);
-                if(leftIndex < 0)
-                {
-                   leftIndex = ~leftIndex;
-                }
-
-                int rightIndex = X.BinarySearch(X[i] - L);
-                if(rightIndex < 0)
-                {
-                    rightIndex = ~rightIndex;
-                    rightIndex--;
-                }
-
-                if(rightIndex < leftIndex)
-                {
-                    continue;
-                }
-
-                dp[i] = GetMinValue(leftIndex,rightIndex,1,1) + 1;
-                SetNodeValue(GetNodeIndex(i), dp[i]);
-            }
-
-            Console.WriteLine(dp[N]);
 
 
             int GetNodeIndex(int position)
@@ -96,12 +78,12 @@ namespace AtCoderCsharp.OtherContests.tessoku_book
                 int nextNodeIndex = nodeIndex / 2;
                 if (0 < nextNodeIndex)
                 {
-                    int nextValue = Math.Min(nodes[nextNodeIndex * 2], nodes[nextNodeIndex * 2 + 1]);
+                    int nextValue = nodes[nextNodeIndex * 2] + nodes[nextNodeIndex * 2 + 1];
                     SetNodeValue(nextNodeIndex, nextValue);
                 }
             }
 
-            int GetMinValue(int positionLeft, int positionRight, int targetNodeIndex, int targetNodeLevel)
+            int GetSumValue(int positionLeft, int positionRight, int targetNodeIndex, int targetNodeLevel)
             {
                 (int targetLeft, int targetRight) = GetRange(targetNodeIndex, targetNodeLevel);
 
@@ -112,13 +94,13 @@ namespace AtCoderCsharp.OtherContests.tessoku_book
 
                 if (targetRight < positionLeft || positionRight < targetLeft)
                 {
-                    return 2_000_000_000;
+                    return 0;
                 }
 
-                int leftMin = GetMinValue(positionLeft, positionRight, targetNodeIndex * 2, targetNodeLevel + 1);
-                int rightMin = GetMinValue(positionLeft, positionRight, targetNodeIndex * 2 + 1, targetNodeLevel + 1);
+                int leftValue = GetSumValue(positionLeft, positionRight, targetNodeIndex * 2, targetNodeLevel + 1);
+                int rightValue = GetSumValue(positionLeft, positionRight, targetNodeIndex * 2 + 1, targetNodeLevel + 1);
 
-                return Math.Min(leftMin, rightMin);
+                return leftValue + rightValue;
             }
 
         }
