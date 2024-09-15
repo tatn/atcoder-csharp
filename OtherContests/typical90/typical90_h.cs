@@ -2,6 +2,7 @@
 {
     internal class typical90_h
     {
+        //008 - AtCounter（★4） 
         public static void Main(string[] args)
         {
             string ReadString() => Console.ReadLine()!;

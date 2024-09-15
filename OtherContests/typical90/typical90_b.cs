@@ -5,6 +5,7 @@ using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace AtCoderCsharp.OtherContests.typical90
 {
+    // 002 - Encyclopedia of Parentheses（★3） 
     internal class typical90_b
     {
         public static void Main(string[] args)

@@ -2,6 +2,7 @@
 
 namespace AtCoderCsharp.OtherContests.typical90
 {
+    //006 - Smallest Subsequence（★5） 
     internal class typical90_f
     {
         public static void Main(string[] args)

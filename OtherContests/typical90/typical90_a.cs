@@ -2,6 +2,7 @@
 
 namespace AtCoderCsharp.OtherContests.typical90
 {
+    //001 - Yokan Party（★4）
     internal class typical90_a
     {
         public static void Main(string[] args)

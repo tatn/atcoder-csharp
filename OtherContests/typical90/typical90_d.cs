@@ -1,5 +1,6 @@
 ﻿namespace AtCoderCsharp.OtherContests.typical90
 {
+    //004 - Cross Sum（★2） 
     internal class typical90_d
     {
         public static void Main(string[] args)

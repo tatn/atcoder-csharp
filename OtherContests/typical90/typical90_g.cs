@@ -1,5 +1,6 @@
 ﻿namespace AtCoderCsharp.OtherContests.typical90
 {
+    //007 - CP Classes（★3） 
     internal class typical90_g
     {
         public static void Main(string[] args)

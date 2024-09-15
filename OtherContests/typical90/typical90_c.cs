@@ -1,6 +1,8 @@
 ﻿
 namespace AtCoderCsharp.OtherContests.typical90
 {
+    // 003 - Longest Circular Road（★4） 
+
     internal class typical90_c
     {
         public static void Main(string[] args)
