@@ -1,14 +1,15 @@
 ﻿namespace AtCoderCsharp.OtherContests.typical90
 {
-    internal class typical90_am
+    internal class typical90_ap
     {
-        // 039 - Tree Distance（★5） ToDo
+        // 042 - Multiple of 9（★4） ToDo
         public static void Main(string[] args)
         {
             int ReadInt() => int.Parse(Console.ReadLine()!);
 
-            int N = ReadInt();
-            List<int>[] G = new List<int>[N+1];
+            int K = ReadInt();
+
+
 
         }
     }
