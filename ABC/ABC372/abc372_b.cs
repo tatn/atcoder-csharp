@@ -10,7 +10,6 @@
             int M = ReadInt();
 
             int remain = M;
-            int N = 0;
 
             List<int> answers = new List<int>();
             for (int i = 1; i <= 20; i++)
