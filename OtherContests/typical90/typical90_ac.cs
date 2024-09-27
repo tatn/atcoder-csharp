@@ -1,10 +1,9 @@
-﻿using System.Reflection.Metadata.Ecma335;
-
-namespace AtCoderCsharp.OtherContests.typical90
+﻿namespace AtCoderCsharp.OtherContests.typical90
 {
     internal class typical90_ac
     {
-        // 029 - Long Bricks（★5） ToDo
+        // 029 - Long Bricks（★5） 
+        // Adjusted Lazy Segment Tree
         public static void Main(string[] args)
         {
             int[] ReadIntArray() => Console.ReadLine()!.Split().Select(int.Parse).ToArray();
@@ -23,101 +22,83 @@ namespace AtCoderCsharp.OtherContests.typical90
                 R[i] = LR[1];
             }
 
-            int leafSize = 1;
-            int treeHeight = 1;
-
-            while (leafSize < W)
+            int size = 1;
+            while (size < W)
             {
-                leafSize *= 2;
-                treeHeight++;
+                size <<= 1;
             }
 
-            int[] tree = new int[1 << treeHeight];
-            int[] depthMemo = new int[1 << treeHeight];
+            int[] tree = new int[size * 2];
+            int?[] lazyTree = new int?[size * 2];
 
             for (int i = 1; i <= N; i++)
             {
                 int left = L[i];
                 int right = R[i];
 
-                int maxHeight = GetMaximumHeight(left, right, 1);
+                int maxHeight = GetMaximumHeight(left, right, 1, 1, size);
                 Console.WriteLine(maxHeight + 1);
 
-                UpdateHeight(left, right, maxHeight + 1 , 1);
-
+                UpdateHeight(left, right, maxHeight + 1, 1, 1, size);
             }
 
-            void UpdateHeight(int left,int right, int height , int targetNodeIndex)
+            void Push(int nodeIndex, int nodeLeft, int nodeRight)
             {
-                (int leftPosition, int rightPosition) = GetLeafPositionRange(targetNodeIndex);
-                if (right < leftPosition || rightPosition < left)
+                if (lazyTree[nodeIndex].HasValue)
                 {
-                    return;
+                    tree[nodeIndex] = lazyTree[nodeIndex]!.Value;
+                    if (nodeLeft != nodeRight)
+                    {
+                        lazyTree[nodeIndex * 2] = lazyTree[nodeIndex]!.Value;
+                        lazyTree[nodeIndex * 2 + 1] = lazyTree[nodeIndex]!.Value;
+                    }
+                    lazyTree[nodeIndex] = null;
                 }
-
-                tree[targetNodeIndex] = Math.Max(height, tree[targetNodeIndex]);
-
-                int depth = GetDepth(targetNodeIndex);
-                if(treeHeight <= depth)
-                {
-                    return;
-                }
-
-                UpdateHeight(left, right, height, targetNodeIndex * 2);
-                UpdateHeight(left, right, height, targetNodeIndex * 2 + 1);
             }
 
-
-
-            int GetMaximumHeight(int left, int right, int targetNodeIndex)
+            int GetMaximumHeight(int queryLeft, int queryRight, int nodeIndex, int nodeLeft, int nodeRight)
             {
-                (int leftPosition, int rightPosition) = GetLeafPositionRange(targetNodeIndex);
-
-                if (right < leftPosition || rightPosition < left)
+                Push(nodeIndex, nodeLeft, nodeRight);
+                if (queryRight < nodeLeft || nodeRight < queryLeft)
                 {
                     return 0;
                 }
 
-                if (left <= leftPosition && rightPosition <= right)
+                if (queryLeft <= nodeLeft && nodeRight <= queryRight)
                 {
-                    return tree[targetNodeIndex];
+                    return tree[nodeIndex];
                 }
 
-                int leftHeight = GetMaximumHeight(left, right, targetNodeIndex * 2);
-                int rightHeight = GetMaximumHeight(left, right, targetNodeIndex * 2 + 1);
-
-                return Math.Max(leftHeight, rightHeight);
-
+                int mid = (nodeLeft + nodeRight) / 2;
+                int leftMax = GetMaximumHeight(queryLeft, queryRight, nodeIndex * 2, nodeLeft, mid);
+                int rightMax = GetMaximumHeight(queryLeft, queryRight, nodeIndex * 2 + 1, mid + 1, nodeRight);
+                return Math.Max(leftMax, rightMax);
             }
 
-            (int,int) GetLeafPositionRange(int targetNodeIndex)
+            void UpdateHeight(int queryLeft, int queryRight, int height, int nodeIndex, int nodeLeft, int nodeRight)
             {
-                int depth = GetDepth(targetNodeIndex);
-                int depthDiff = treeHeight - depth;
-
-                int left = targetNodeIndex * (1 << depthDiff) - leafSize + 1;
-                int right = left + (1 << depthDiff) - 1;
-
-                return (left, right);
-            }
-
-            int GetDepth(int targetNodeIndex)
-            {
-                if (depthMemo[targetNodeIndex] == 0)
+                Push(nodeIndex, nodeLeft, nodeRight);
+                if (queryRight < nodeLeft || nodeRight < queryLeft)
                 {
-                    int depth = 1;
+                    return;
+                }
 
-                    while ( (1 << depth) <= targetNodeIndex )
+                if (queryLeft <= nodeLeft && nodeRight <= queryRight)
+                {
+                    tree[nodeIndex] = height;
+                    if (nodeLeft != nodeRight)
                     {
-                        depth++;
+                        lazyTree[nodeIndex * 2] = height;
+                        lazyTree[nodeIndex * 2 + 1] = height;
                     }
-
-                    depthMemo[targetNodeIndex] = depth;
+                    return;
                 }
 
-                return depthMemo[targetNodeIndex];
+                int mid = (nodeLeft + nodeRight) / 2;
+                UpdateHeight(queryLeft, queryRight, height, nodeIndex * 2, nodeLeft, mid);
+                UpdateHeight(queryLeft, queryRight, height, nodeIndex * 2 + 1, mid + 1, nodeRight);
+                tree[nodeIndex] = Math.Max(tree[nodeIndex * 2], tree[nodeIndex * 2 + 1]);
             }
-
         }
     }
 }
