@@ -15,6 +15,77 @@
             int[] A = new int[N + 1];
             int[] B = new int[N + 1];
 
+            for (int i = 1; i <= N; i++)
+            {
+                int[] AB = ReadIntArray();
+                A[i] = AB[0];
+                B[i] = AB[1];
+            }
+
+            // dp[i,j] = N~i番目まで選んだ後の時点で金額jになるか
+            bool[,] dp = new bool[N + 1, 100_001];
+            dp[N, S] = true;
+
+            for (int i = N - 1; 0 <= i; i--)
+            {
+                for (int j = 0; j < 100_001; j++)
+                {
+                    if (!dp[i + 1, j])
+                    {
+                        continue;
+                    }
+
+                    if (0 <=  j - A[i + 1])
+                    {
+                        dp[i, j - A[i + 1]] = true;
+                    }
+
+                    if (0 <= j - B[i + 1])
+                    {
+                        dp[i, j - B[i + 1]] = true;
+                    }
+                }
+            }
+
+            if (dp[0, 0])
+            {
+                List<string> plan = new List<string>();
+                int total = 0;
+                for (int i = 1; i <= N; i++)
+                {
+                    if (total + A[i] <= 100_000 &&  dp[i, total + A[i]])
+                    {
+                        plan.Add("A");
+                        total += A[i];
+                    }
+                    else if (total + B[i] <= 100_000 && dp[i, total + B[i]])
+                    {
+                        plan.Add("B");
+                        total += B[i];
+                    }
+                }
+
+                Console.WriteLine(string.Join("", plan));
+            }
+            else
+            {
+                Console.WriteLine("Impossible");
+            }
+
+
+        }
+
+        public static void Main1(string[] args)
+        {
+            int[] ReadIntArray() => Console.ReadLine()!.Split().Select(int.Parse).ToArray();
+
+            int[] NS = ReadIntArray();
+            int N = NS[0];
+            int S = NS[1];
+
+            int[] A = new int[N + 1];
+            int[] B = new int[N + 1];
+
             (int,string)[] minimum = new (int, string)[N + 1];
             (int, string)[] maximum = new (int, string)[N + 1];
 
