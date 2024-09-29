@@ -1,6 +1,6 @@
 ﻿namespace AtCoderCsharp.ABC.ABC373
 {
-    // F - Knapsack with Diminishing Values
+    // F - Knapsack with Diminishing Values ToDo
     internal class abc373_f
     {
         public static void Main(string[] args)
