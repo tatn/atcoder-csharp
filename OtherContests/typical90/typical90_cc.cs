@@ -1,10 +1,72 @@
 ﻿namespace AtCoderCsharp.OtherContests.typical90
 {
-    //  081 - Friendly Group（★5） ToDo
+    //  081 - Friendly Group（★5）
 
     internal class typical90_cc
     {
         public static void Main(string[] args)
+        {
+            int[] ReadIntArray() => Console.ReadLine()!.Split().Select(int.Parse).ToArray();
+
+            int[] NK = ReadIntArray();
+            int N = NK[0];
+            int K = NK[1];
+
+            int[] A = new int[N + 1];
+            int[] B = new int[N + 1];
+
+            int[,] studentCount = new int[5001, 5001];
+
+            for (int i = 1; i <= N; i++)
+            {
+                int[] ab = ReadIntArray();
+                A[i] = ab[0];
+                B[i] = ab[1];
+
+                studentCount[A[i], B[i]]++;
+            }
+
+            int[,] sum = new int[5001, 5001];
+            
+            for (int i = 1; i <= 5000; i++)
+            {
+                for (int j = 1; j <= 5000; j++)
+                {
+                    sum[i, j] = sum[i, j - 1] + studentCount[i, j];
+                }
+            }
+
+            for (int i = 1; i <= 5000; i++)
+            {
+                for (int j = 1; j <= 5000; j++)
+                {
+                    sum[j, i] = sum[j, i] + sum[j - 1, i];
+                }
+            }
+
+            int answer = 0;
+
+            for (int i = 1; i <= 5000; i++)
+            {
+                for (int j = 1; j <= 5000; j++)
+                {
+                    // (i,j) - (i+k, j+k) の範囲の生徒数
+                    int heightMax = i + K;
+                    heightMax = 5000 < heightMax ? 5000 : heightMax;
+
+                    int widthMax = j + K;
+                    widthMax = 5000 < widthMax ? 5000 : widthMax;
+                    int count = sum[heightMax, widthMax] - sum[heightMax, j - 1] - sum[i - 1, widthMax] + sum[i - 1, j - 1];
+                    
+                    answer = Math.Max(answer, count);
+                }
+            }
+
+            Console.WriteLine(answer);
+
+        }
+
+        public static void Main2(string[] args)
         {
             int[] ReadIntArray() => Console.ReadLine()!.Split().Select(int.Parse).ToArray();
 
