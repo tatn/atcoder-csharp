@@ -53,6 +53,7 @@ namespace AtCoderCsharp.ABC.ABC376
                     }
 
                     other = right;
+                    left = t;
                 }
                 else
                 {
@@ -69,6 +70,7 @@ namespace AtCoderCsharp.ABC.ABC376
                     }
 
                     other = left;
+                    right = t;
                 }
 
 
@@ -81,6 +83,8 @@ namespace AtCoderCsharp.ABC.ABC376
                     answer += max - min;
                 }
             }
+
+            Console.WriteLine(answer);
         }
 
         public static void Main2(string[] args)
